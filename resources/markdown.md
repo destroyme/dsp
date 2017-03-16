@@ -173,7 +173,7 @@ What is the most installed language in the world?
 - Spark
 - Javascript
 
->>REPLACE THIS TEXT WITH YOUR RESPONSE
+>> Javascript because if you have a browser installed, you have Javascript installed, and there are billions of mobile devices out there in the wild right now, and that's not including desktop devices! That's a lot of places to install Javascript!
 
 -
 
@@ -186,7 +186,7 @@ What is the distribution of t-squared?
  * Beta
  * Bivariate Normal
 
->>REPLACE THIS TEXT WITH YOUR RESPONSE
+>> F
 
 ***
 
@@ -197,7 +197,7 @@ In the scikit-learn's official source repo, about how many issues are outstandin
 3. 700  
 4. 7000  
 
->>REPLACE THIS TEXT WITH YOUR RESPONSE
+>> 780
 
 ---
 
