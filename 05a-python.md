@@ -36,7 +36,7 @@ A set differs from a list in a few key areas. In a set you're unable to have dup
 {1, 2, 3}
 ```
 
-Another key difference between a set and a list, is a set is unordered. Any ordered structure you pass it will inevitably be restructured to python's partial ordering. This also gives way to the question 'how do you find an element of a set?'. Python uses hash lookups to search for an element, so elements that aren't hashable (lists, dictionaries, *SETS*) can not be contained in a set. A similarity of sets and lists are in their mutability. They both have the abilitiy to continiously change state within your program. Here's an example of these concepts:
+Another key difference between a set and a list, is a set is unordered. Any ordered structure you pass it will inevitably be restructured to python's partial ordering. This also gives way to the question 'how do you find an element of a set?'. Python uses hash lookups to search for an element, so elements that aren't hashable (lists, dictionaries, *SETS*) can not be contained in a set. A similarity of sets and lists are in their mutability. They both have the abilitiy to continuously change state within your program. Here's an example of these concepts:
 
 ```python
 >>> a = set([1.0,-1.0,0]) # it will not retain the order of the list
@@ -79,12 +79,18 @@ The key passes through the list evaluating the lambda `x % 2 != 0` for each elem
 
 Explain list comprehensions. Give examples and show equivalents with `map` and `filter`. How do their capabilities compare? Also demonstrate set comprehensions and dictionary comprehensions.
 
->> List comprehensions are a way of transforming lists into another list. They provide syntax that is very similar to set-builder notation in mathematics: *{x<sup>2</sup> | x ϵ `Z`, 0 < x < 6}*, building a set of {1,4,9,16,25}, where in python the same set is expressed as 
+>> List comprehensions are a way of transforming lists into another list.
+
+They provide syntax that is very similar to set-builder notation in mathematics: {x<sup>2</sup> | x ϵ `Z`, 0 < x < 6}, building a set of {1,4,9,16,25}, where in python the same set expressed as list comprehension is:
+
 ```python
 [x**2 for x in range(10) if 0 < x < 6]
 ```
 
-It's so close to the notation! These list comprehensions provide a friendly syntax to express lists, but are of course only 1 way of expressing them. The same list can be expressed with a `map` and a `filter`, where a `map` provides us a way to map a function to an iterable, and a `filter` allows us to filter out items from an iterable, only keeping the items that satisfy true for a boolean function passed to it. Here's a few examples of using both:
+It's so close to the notation! 
+
+These list comprehensions provide a friendly syntax to express lists, but are of course only 1 way of expressing them. The same list can be expressed with a `map` and a `filter`, where a `map` provides us a way to map a function to an iterable, and a `filter` allows us to filter out items from an iterable, only keeping the items that satisfy true for a boolean function passed to it. Here's a few examples using both:
+
 ```python
 >>> # MAP
 >>> x_map = map(lambda x: x**2, range(1,6)) # squaring the iterable returned by range
@@ -101,15 +107,20 @@ It's so close to the notation! These list comprehensions provide a friendly synt
 >>> list(x)
 [1, 4, 9, 16, 25]
 ```
-To decompose this last one a bit, you'll see that I used a map and the first paramater I passed it was a lambda. This lambda is a simple function that just returns the argument passed to it (*f(x) = x*). The second parameter of map is meant to be an interable, so here we're expecting to see the list [1,2,3,4,5]. In order to produce that list, we used a `filter`. The filter uses the same parameters as map, where it needs a function as its first parameter, and an iterable as its second. The function it uses is a boolean function that produces either True or False. The elements of the iterable that produce True are added to the list returned. This is how we produced the list [1,2,3,4,5] for the map function, which then uses that list to return that list squared.
 
-You'll notice that I converted the return value of map into a list. This is because maps return an iterator and in order to retrieve these values, you need to iterate over them. You can produce the same functionality for using a generator comprehension that uses this syntax:
+To decompose this last one a bit, you'll see that I used a map and it follows the same structure as the first example. The first paramater is a lambda that returns the square of the argument passed to it (f(x) = x<sup>2</sup>). The second parameter of map is meant to be an interable, so here we're expecting to see the list [1,2,3,4,5]. To produce that list, we used a `filter`. The filter parsed through a list looking only for the items (0, 6). This is how we produced the list [1,2,3,4,5] for the map function, which then uses that list to return that list squared.
+
+You'll notice that I converted the return value of map into a list. This is because maps return an iterator and in order to retrieve these values, you need to use something to iterate over them. The same functionality can be produced using the comprehension syntax by using generator comprehension:
+
 ```python
-(x**2 for x in range(10) if 0 < x < 6)
+>>> x = (x**2 for x in range(10) if 0 < x < 6)
+>>> list(x)
+[1, 4, 9, 16, 25]
 ```
-The capabilities of map and filter combined are what list comprehension provides us within a smaller one-line syntax.
 
-The comprehension syntax can also be applied to dictionaries and sets too! Sets are pretty straight forward and function a lot like list comprehension:
+The capabilities of map and filter are incredibly similar to list comprehension, and can do this within a more condensed syntax.
+
+The comprehension syntax can also be applied to dictionaries and sets too! Sets are pretty straight forward and function a lot like list comprehension, except they of course have set properties:
 
 ```python
 >>> {x**2 for x in range(10) if 0 < x < 6}
@@ -119,7 +130,8 @@ The comprehension syntax can also be applied to dictionaries and sets too! Sets 
 >>> {w[0] for w in words} # set of first letter of all words
 {'b', 'h', 'g'}
 ```
-Dictionaries look the similar to sets, but the values you're working with are tuples that are then structured to create a dictionary. The values used have the  syntax *key : value*. Let's have a look at it:
+
+Dictionary comprehension has syntax similar to sets, but the values returned to the dictionary have the syntax *key : value*. Let's have a look at it:
 
 ```python
 >>> # My friend's favorite sports
@@ -130,10 +142,11 @@ Dictionaries look the similar to sets, but the values you're working with are tu
 >>> basketball_fans
 {'Erica': 'Basketball', 'Rob': 'Basketball'}
 ```
+
 To break this down a bit:
-1. We see in the beginning we have the key : value syntax we're used to with dictionaries, and in comprehensions where those are the new values to be returnedd.
-2. the for indicates we're about to begin a loop that will return a tuple of (key, value) we'll store from the d.items() function
-3. We're filtering d.items() for all values that equal 'Basketball'
+1. We see in the beginning we have the key : value syntax we're used to with dictionaries, and in comprehensions where those are the new values to be returned.
+2. The `for` indicates we're about to begin a loop that will iterate over a structure that returned an iterable of `(key, value)`. We'll store those as their respective names.
+3. We're filtering `d.items()` for all values that equal `'Basketball'`.
 4. A new dictionary is returned upon completion!
 
 
